@@ -1,0 +1,36 @@
+
+bindkey -v
+alias v=nvim
+alias zc='nvim ~/.zshrc'
+alias szc='source ~/.zshrc'
+alias lb='cd ~/Developer/lab/'
+alias k='kubectl'
+
+autoload -Uz compinit
+compinit
+
+source <(kubectl completion zsh)
+compdef _kubectl k
+
+alias kgp='kubectl get pods'
+alias kc='kubectx'
+alias kn='kubens'
+
+
+sd() {
+  local depth=""
+  local dir="."
+
+  if [[ $# -eq 1 ]]; then
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+      depth="--depth=$1"
+    else
+      dir="$1"
+    fi
+  elif [[ $# -eq 2 ]]; then
+    depth="--depth=$1"
+    dir="$2"
+  fi
+
+  command lsd --tree $depth "$dir"
+}
