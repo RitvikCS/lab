@@ -1,4 +1,8 @@
 
+plugins=(git zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting)
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#89dceb'
+
 bindkey -v
 alias v=nvim
 alias zc='nvim ~/.zshrc'
@@ -16,6 +20,7 @@ alias kgp='kubectl get pods'
 alias kc='kubectx'
 alias kn='kubens'
 
+export KUBE_EDITOR="nvim"
 
 sd() {
   local depth=""
