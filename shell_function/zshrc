@@ -39,3 +39,6 @@ sd() {
 
   command lsd --tree $depth "$dir"
 }
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+
