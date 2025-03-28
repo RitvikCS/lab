@@ -1,0 +1,43 @@
+# Aliases
+alias v=nvim
+alias bc='nvim ~/.bashrc'
+alias sbc='source ~/.bashrc'
+alias lb='cd ~/Developer/lab/'
+alias k=kubectl
+alias kgp='kubectl get pods'
+alias kc='kubectx'
+alias kn='kubens'
+
+set -o vi
+
+export KUBE_EDITOR="nvim"
+
+sd() {
+  local depth=""
+  local dir="."
+
+  if [[ $# -eq 1 ]]; then
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+      depth="--depth=$1"
+    else
+      dir="$1"
+    fi
+  elif [[ $# -eq 2 ]]; then
+    depth="--depth=$1"
+    dir="$2"
+  fi
+
+  command lsd --tree $depth "$dir"
+}
+
+# Kubectl completion for bash
+source <(kubectl completion bash)
+complete -F __start_kubectl k
+
+if [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
+
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
