@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -13,28 +16,36 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "grafana",
+        "uid": "-- Grafana --"
+      },
       "gridPos": {
         "h": 3,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 1,
-      "title": "",
-      "type": "text",
+      "id": 12,
       "options": {
-        "mode": "markdown",
-        "content": "# EC2 Instances Monitoring\nThis dashboard provides detailed metrics and information about your EC2 instances across all regions."
-      }
+        "content": "# EC2 Instances Monitoring\nThis dashboard provides detailed metrics and information about your EC2 instances across all regions.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.2",
+      "type": "text"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -97,7 +108,7 @@
         "x": 0,
         "y": 3
       },
-      "id": 2,
+      "id": 13,
       "options": {
         "showHeader": true,
         "sortBy": [
@@ -107,9 +118,13 @@
           }
         ]
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {},
           "expression": "",
           "hide": false,
@@ -118,24 +133,27 @@
           "metricName": "",
           "namespace": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "sqlExpression": "",
+          "statistic": "Average"
         }
       ],
       "title": "EC2 Instances Overview",
       "type": "table"
     },
     {
-      "datasource": "CloudWatch",
-      "description": "",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -187,7 +205,7 @@
         "x": 0,
         "y": 10
       },
-      "id": 3,
+      "id": 2,
       "options": {
         "legend": {
           "calcs": [
@@ -195,16 +213,21 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
-          "alias": "{{instance_id}} - {{InstanceId}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "InstanceId": "*"
           },
@@ -213,24 +236,28 @@
           "matchExact": true,
           "metricName": "CPUUtilization",
           "namespace": "AWS/EC2",
+          "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "CPU Utilization",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -290,16 +317,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
-          "alias": "{{instance_id}} - {{InstanceId}} In",
+          "alias": "{{InstanceId}} In",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "InstanceId": "*"
           },
@@ -308,14 +341,17 @@
           "matchExact": true,
           "metricName": "NetworkIn",
           "namespace": "AWS/EC2",
+          "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         },
         {
-          "alias": "{{instance_id}} - {{InstanceId}} Out",
+          "alias": "{{InstanceId}} Out",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "InstanceId": "*"
           },
@@ -324,24 +360,28 @@
           "matchExact": true,
           "metricName": "NetworkOut",
           "namespace": "AWS/EC2",
+          "period": "",
           "refId": "B",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Network Traffic",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -401,16 +441,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
-          "alias": "{{instance_id}} - {{InstanceId}} Read",
+          "alias": "{{InstanceId}} Read",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "InstanceId": "*"
           },
@@ -419,14 +465,17 @@
           "matchExact": true,
           "metricName": "DiskReadBytes",
           "namespace": "AWS/EC2",
+          "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         },
         {
-          "alias": "{{instance_id}} - {{InstanceId}} Write",
+          "alias": "{{InstanceId}} Write",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "InstanceId": "*"
           },
@@ -435,18 +484,20 @@
           "matchExact": true,
           "metricName": "DiskWriteBytes",
           "namespace": "AWS/EC2",
+          "period": "",
           "refId": "B",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Disk I/O",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -478,6 +529,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -492,15 +544,19 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "title": "Instance Types Distribution",
       "type": "piechart"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -532,6 +588,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -546,22 +603,27 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "title": "Instance Status Distribution",
       "type": "piechart"
     },
     {
-      "datasource": "CloudWatch",
-      "description": "",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -620,16 +682,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
-          "alias": "{{instance_id}} - {{InstanceId}}",
+          "alias": "{{InstanceId}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "InstanceId": "*"
           },
@@ -638,11 +706,10 @@
           "matchExact": true,
           "metricName": "StatusCheckFailed",
           "namespace": "AWS/EC2",
+          "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Status Check Failures",
@@ -650,7 +717,7 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 26,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "aws",
@@ -660,21 +727,36 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "default",
+          "value": "default"
         },
-        "datasource": "CloudWatch",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "cloudwatch",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "datasource": {
+          "type": "cloudwatch",
+          "uid": "$datasource"
+        },
         "definition": "regions()",
         "hide": 0,
         "includeAll": true,
-        "label": "Region",
         "multi": true,
         "name": "region",
         "options": [],
@@ -683,11 +765,7 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       }
     ]
   },
@@ -712,5 +790,6 @@
   "timezone": "",
   "title": "EC2 Instances Dashboard",
   "uid": "ec2-instances-dashboard",
-  "version": 1
+  "version": 1,
+  "weekStart": ""
 }

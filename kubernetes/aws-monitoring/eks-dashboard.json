@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -13,12 +16,17 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 2,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "grafana",
+        "uid": "-- Grafana --"
+      },
       "gridPos": {
         "h": 3,
         "w": 24,
@@ -26,15 +34,18 @@
         "y": 0
       },
       "id": 1,
-      "title": "",
-      "type": "text",
       "options": {
-        "mode": "markdown",
-        "content": "# EKS Clusters Account-Wide Monitoring\nThis dashboard provides a high-level view of all your EKS clusters across your AWS account, including cluster health, node status, and resource utilization."
-      }
+        "content": "# EKS Clusters Account-Wide Monitoring\nThis dashboard provides a high-level view of all your EKS clusters across your AWS account, including cluster health, node status, and resource utilization.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.2",
+      "type": "text"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -70,10 +81,14 @@
           }
         ]
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -84,10 +99,8 @@
           "namespace": "AWS/EKS",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "EKS Clusters Overview",
@@ -110,7 +123,10 @@
       "type": "table"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -152,10 +168,14 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "Total Clusters",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {},
           "expression": "SEARCH('{AWS/EKS,ClusterName} MetricName=\"cluster_failed_node_count\"', 'Count', 300)",
           "id": "",
@@ -164,17 +184,18 @@
           "namespace": "",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Count"
-          ]
+          "region": "$region",
+          "statistic": "Count"
         }
       ],
       "title": "Total Clusters",
       "type": "stat"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -216,10 +237,14 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "Total Nodes",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -230,17 +255,18 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         }
       ],
       "title": "Total Nodes",
       "type": "stat"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -282,10 +308,14 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "Failed Nodes",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -296,17 +326,18 @@
           "namespace": "AWS/EKS",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         }
       ],
       "title": "Failed Nodes",
       "type": "stat"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -352,10 +383,14 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "Pod Count",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -366,23 +401,26 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         }
       ],
       "title": "Total Pods (with Container Insights)",
       "type": "stat"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -442,16 +480,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -462,23 +506,26 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Node CPU Utilization by Cluster",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -538,16 +585,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -558,17 +611,18 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Node Memory Utilization by Cluster",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -600,6 +654,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -614,13 +669,18 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -631,23 +691,26 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Maximum"
-          ]
+          "region": "$region",
+          "statistic": "Maximum"
         }
       ],
       "title": "Node Distribution by Cluster",
       "type": "piechart"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -706,16 +769,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -726,17 +795,18 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Maximum"
-          ]
+          "region": "$region",
+          "statistic": "Maximum"
         }
       ],
       "title": "Pod Count by Cluster",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -770,10 +840,14 @@
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}} CPU",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -784,13 +858,15 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         },
         {
           "alias": "{{ClusterName}} Memory",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -801,10 +877,8 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "B",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Cluster Resource Utilization",
@@ -831,13 +905,18 @@
       "type": "table"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -896,16 +975,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -916,17 +1001,18 @@
           "namespace": "AWS/EKS",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Maximum"
-          ]
+          "region": "$region",
+          "statistic": "Maximum"
         }
       ],
       "title": "Failed Node Count",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -958,6 +1044,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -972,13 +1059,18 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{Region}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {},
           "expression": "SEARCH('{AWS/EKS,ClusterName} MetricName=\"cluster_failed_node_count\"', 'Count', 300) GROUP BY Region",
           "id": "",
@@ -987,24 +1079,26 @@
           "namespace": "",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Count"
-          ]
+          "region": "$region",
+          "statistic": "Count"
         }
       ],
       "title": "Clusters by Region",
       "type": "piechart"
     },
     {
-      "datasource": "CloudWatch",
-      "description": "",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1063,16 +1157,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{ClusterName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "ClusterName": "*"
           },
@@ -1083,16 +1183,18 @@
           "namespace": "ContainerInsights",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         }
       ],
       "title": "Cluster Network Traffic",
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "grafana",
+        "uid": "-- Grafana --"
+      },
       "gridPos": {
         "h": 4,
         "w": 24,
@@ -1100,16 +1202,16 @@
         "y": 56
       },
       "id": 15,
-      "title": "",
-      "type": "text",
       "options": {
-        "mode": "markdown",
-        "content": "# Container Insights Metrics\nThis dashboard relies on Container Insights metrics for detailed EKS monitoring. Some panels may not show data if Container Insights is not enabled for your clusters.\n\nTo enable Container Insights, run:\n```\neksctl utils update-cluster-logging --enable-types containerinsights --cluster <cluster-name> --approve\n```\n\nAlternatively, you can enable it through the AWS Management Console under EKS → Clusters → [Your Cluster] → Observability tab."
-      }
+        "content": "# Container Insights Metrics\nThis dashboard relies on Container Insights metrics for detailed EKS monitoring. Some panels may not show data if Container Insights is not enabled for your clusters.\n\nTo enable Container Insights, run:\n```\neksctl utils update-cluster-logging --enable-types containerinsights --cluster <cluster-name> --approve\n```\n\nAlternatively, you can enable it through the AWS Management Console under EKS → Clusters → [Your Cluster] → Observability tab.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.2",
+      "type": "text"
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 26,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "aws",
@@ -1120,17 +1222,59 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "cloudwatch",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "datasource": {
+          "type": "cloudwatch",
+          "uid": "$datasource"
+        },
+        "definition": "regions()",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "region",
+        "options": [],
+        "query": "regions()",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
         "current": {
           "selected": false,
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "CloudWatch",
+        "datasource": {
+          "type": "cloudwatch",
+          "uid": "$datasource"
+        },
         "definition": "dimension_values($region,AWS/EKS,cluster_failed_node_count,ClusterName)",
         "hide": 0,
         "includeAll": true,
-        "label": "Cluster",
         "multi": false,
         "name": "cluster",
         "options": [],
@@ -1139,37 +1283,7 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "CloudWatch",
-        "definition": "regions()",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Region",
-        "multi": true,
-        "name": "region",
-        "options": [],
-        "query": "regions()",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       }
     ]
   },
@@ -1194,5 +1308,6 @@
   "timezone": "",
   "title": "EKS Clusters Account-Wide Dashboard",
   "uid": "eks-clusters-account-dashboard",
-  "version": 1
+  "version": 1,
+  "weekStart": ""
 }

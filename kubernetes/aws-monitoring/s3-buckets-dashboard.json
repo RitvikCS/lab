@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -13,12 +16,17 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 3,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "grafana",
+        "uid": "-- Grafana --"
+      },
       "gridPos": {
         "h": 3,
         "w": 24,
@@ -26,15 +34,18 @@
         "y": 0
       },
       "id": 1,
-      "title": "",
-      "type": "text",
       "options": {
-        "mode": "markdown",
-        "content": "# S3 Buckets Monitoring\nThis dashboard provides detailed metrics and information about your S3 buckets, storage usage, and request patterns."
-      }
+        "content": "# S3 Buckets Monitoring\nThis dashboard provides detailed metrics and information about your S3 buckets, storage usage, and request patterns.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.2",
+      "type": "text"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -70,9 +81,13 @@
           }
         ]
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {},
           "expression": "",
           "hide": false,
@@ -81,17 +96,19 @@
           "metricName": "",
           "namespace": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "sqlExpression": "",
+          "statistic": "Average"
         }
       ],
       "title": "S3 Buckets Overview",
       "type": "table"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -129,9 +146,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "StorageType": "StandardStorage"
           },
@@ -142,17 +163,18 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Total Storage Used (Standard)",
       "type": "stat"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -190,9 +212,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "StorageType": "AllStorageTypes"
           },
@@ -203,17 +229,18 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Total Objects",
       "type": "stat"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -245,6 +272,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -259,13 +287,18 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{BucketName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "*",
             "StorageType": "StandardStorage"
@@ -277,23 +310,26 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Storage Distribution by Bucket",
       "type": "piechart"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -353,16 +389,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{BucketName}}",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "*",
             "StorageType": "StandardStorage"
@@ -374,23 +416,26 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Storage Size Trend",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -450,16 +495,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{BucketName}} - Objects",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "*",
             "StorageType": "AllStorageTypes"
@@ -471,23 +522,26 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Object Count Trend",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -547,16 +601,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "GET",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -568,13 +628,15 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         },
         {
           "alias": "PUT",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -586,13 +648,15 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "B",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         },
         {
           "alias": "DELETE",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -604,13 +668,15 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "C",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         },
         {
           "alias": "HEAD",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -622,13 +688,15 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "D",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         },
         {
           "alias": "LIST",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -640,23 +708,26 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "E",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         }
       ],
       "title": "Request Distribution by Type",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -716,16 +787,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "4xx Errors",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -737,13 +814,15 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         },
         {
           "alias": "5xx Errors",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -755,23 +834,26 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "B",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         }
       ],
       "title": "Error Count",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -831,16 +913,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "First Byte Latency",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -852,13 +940,15 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         },
         {
           "alias": "Total Request Latency",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -870,23 +960,26 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "B",
-          "region": "default",
-          "statistics": [
-            "Average"
-          ]
+          "region": "$region",
+          "statistic": "Average"
         }
       ],
       "title": "Latency Metrics",
       "type": "timeseries"
     },
     {
-      "datasource": "CloudWatch",
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -946,16 +1039,22 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "7.3.0",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "alias": "{{BucketName}} - Bytes Downloaded",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -967,13 +1066,15 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "A",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         },
         {
           "alias": "{{BucketName}} - Bytes Uploaded",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "$datasource"
+          },
           "dimensions": {
             "BucketName": "${bucket}",
             "FilterId": "EntireBucket"
@@ -985,10 +1086,8 @@
           "namespace": "AWS/S3",
           "period": "",
           "refId": "B",
-          "region": "default",
-          "statistics": [
-            "Sum"
-          ]
+          "region": "$region",
+          "statistic": "Sum"
         }
       ],
       "title": "Data Transfer",
@@ -996,7 +1095,7 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 26,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "aws",
@@ -1007,33 +1106,47 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "cloudwatch",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
         "current": {
           "selected": false,
           "text": "All",
           "value": "$__all"
         },
-        "datasource": "CloudWatch",
-        "definition": "dimension_values(us-east-1,AWS/S3,BucketSizeBytes,BucketName)",
+        "datasource": {
+          "type": "cloudwatch",
+          "uid": "$datasource"
+        },
+        "definition": "dimension_values($region,AWS/S3,BucketSizeBytes,BucketName)",
         "hide": 0,
         "includeAll": true,
-        "label": "Bucket",
         "multi": false,
         "name": "bucket",
         "options": [],
-        "query": "dimension_values(us-east-1,AWS/S3,BucketSizeBytes,BucketName)",
+        "query": "dimension_values($region,AWS/S3,BucketSizeBytes,BucketName)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       },
       {
-        "allValue": null,
         "current": {
           "selected": true,
           "text": [
@@ -1043,11 +1156,13 @@
             "$__all"
           ]
         },
-        "datasource": "CloudWatch",
+        "datasource": {
+          "type": "cloudwatch",
+          "uid": "$datasource"
+        },
         "definition": "regions()",
         "hide": 0,
         "includeAll": true,
-        "label": "Region",
         "multi": true,
         "name": "region",
         "options": [],
@@ -1056,11 +1171,7 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       }
     ]
   },
@@ -1085,5 +1196,6 @@
   "timezone": "",
   "title": "S3 Buckets Dashboard",
   "uid": "s3-buckets-dashboard",
-  "version": 1
+  "version": 1,
+  "weekStart": ""
 }
