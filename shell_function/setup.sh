@@ -59,13 +59,26 @@ print_header() {
     local title="$1"
     local icon="$2"
     local cols=$(tput cols)
-    local title_length=${#title}
-    local padding=$(( (cols - title_length - 6) / 2 ))
-
+    
+    # Simple approach - use fixed width
+    local header_width=80
+    if [ $cols -lt 80 ]; then
+        header_width=$cols
+    fi
+    
+    local content="${icon} ${title} ${icon}"
+    local content_length=${#content}
+    local padding=$(( (header_width - content_length - 2) / 2 ))
+    
+    # Ensure padding is not negative
+    if [ $padding -lt 1 ]; then
+        padding=1
+    fi
+    
     echo ""
-    echo -e "${BLUE}╔$(printf '═%.0s' $(seq 1 $((cols-2))))╗${NC}"
-    printf "${BLUE}║${NC}%*s${icon} ${BOLD}${WHITE}%s${NC} ${icon}%*s${BLUE}║${NC}\n" $padding "" "$title" $padding ""
-    echo -e "${BLUE}╚$(printf '═%.0s' $(seq 1 $((cols-2))))╝${NC}"
+    echo -e "${BLUE}╔$(printf '═%.0s' $(seq 1 $((header_width-2))))╗${NC}"
+    printf "${BLUE}║${NC}%*s${BOLD}${WHITE}%s${NC}%*s${BLUE}║${NC}\n" $padding "" "${icon} ${title} ${icon}" $padding ""
+    echo -e "${BLUE}╚$(printf '═%.0s' $(seq 1 $((header_width-2))))╝${NC}"
 }
 
 run_command() {
